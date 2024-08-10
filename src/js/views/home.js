@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
 
@@ -8,7 +7,6 @@ export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	useEffect (() => {
-
 		actions.fetchContacts()
 	}, []);
 	
@@ -23,6 +21,6 @@ export const Home = () => {
 				<p>Phone: {contact.phone}</p>
 				<p>Address: {contact.address}</p>
 			</div>
-		))}	
+		))};	
 	</div>
 );}
