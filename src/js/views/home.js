@@ -1,6 +1,5 @@
 import { useContext } from "react";
-import React {useContext} from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
+import React, {useContext} from "react";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
 
