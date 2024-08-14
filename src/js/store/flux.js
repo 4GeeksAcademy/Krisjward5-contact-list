@@ -12,29 +12,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.catch((err) => console.error(err));
 			},
-			// editContact: (contact, index) => {
-			// 	const tempContacts = getStore().contacts.toSpliced(index, 1, contact);
-			// 	setStore({ contacts: tempContacts })
-			// 		.then(() => {
-			// 			const url = `https://playground.4geeks.com/contact/agendas/kris/contacts/${contact.id}`;
-			// 			const method = 'PUT';
-			// 			const body = JSON.stringify({
-			// 				"full_name": contact.full_name,
-			// 				"email": contact.email,
-			// 				"agenda_slug": "kris",
-			// 				"address": contact.address,
-			// 				"phone": contact.phone,
-			// 			});
-			// 			return getActions().fetchAPI(url, method, body);
-			// 		})
-			// 		.then(response => {
-			// 			// Handle the response if needed
-			// 			console.log("Contact updated successfully:", response);
-			// 		})
-			// 		.catch(error => {
-			// 			console.error("Error updating contact:", error);
-			// 		});
-			// },
+
+			addContact: async (newContact) => {
+				try {
+					const response = await fetch(
+						'https://playground.4geeks.com/contact/agendas/kris/contacts',
+						{
+							method: "POST",
+							headers: { "Content-Type": "application/json" },
+							body: JSON.stringify(newContact)
+						}
+					);
+					if (!response.ok) {
+						throw new Error('Failed to add contact');
+					}
+					const data = await response.json();
+					const store = getStore();
+					setStore({
+						contacts: [...store.contacts, data]
+					});
+					return true;
+				} catch (error) {
+					console.error("Error adding contact:", error);
+					return false;
+				}
+			},
 
 			editContact: async (id, updatedContact) => {
 				const store = getStore();
@@ -54,7 +56,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  
 				  setStore({
 					contacts: store.contacts.map(contact => 
-					  contact.id === id ? { ...contact, ...updatedContact } : contact
+					  contact.id === id ? { ...contact, ...data } : contact
 					)
 				  });
 				  
