@@ -9,11 +9,9 @@ import { useParams } from "react-router-dom";
 import { CiEdit } from "react-icons/ci";
 import { Button } from 'react-bootstrap';
 import EditContactModal from "../component/EditContactModal";
-import AddContactPage from "../component/AddContactPage";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
-	const { id } = useParams();
 	const [showModal, setShowModal] = useState(false);
 	const [currentContact, setCurrentContact] = useState(null);
 
